@@ -1,0 +1,97 @@
+﻿<Window x:Class="Client_Menu.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Client_Menu"
+        d:DataContext="{d:DesignInstance local:ViewModel}"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        mc:Ignorable="d"
+        Title="MainWindow" MinHeight="750" MinWidth="600" MaxHeight="750" MaxWidth="600">
+
+    <Window.Resources>
+        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignRaisedLightButton}">
+            <Setter Property="Margin" Value="5"></Setter>
+            <Setter Property="Padding" Value="5"></Setter>
+            <Setter Property="Background" Value="CornflowerBlue"></Setter>
+            <Setter Property="Foreground" Value="White"></Setter>
+        </Style>
+        <Style x:Key="YellowButton" TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignRaisedAccentButton}">
+            <Setter Property="Margin" Value="5"></Setter>
+            <Setter Property="Padding" Value="5"></Setter>
+            <Setter Property="Background" Value="Crimson"></Setter>
+            <Setter Property="Foreground" Value="White"></Setter>
+
+        </Style>
+
+        <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource MaterialDesignTextBox}">
+            <Setter Property="Margin" Value="5"></Setter>
+            <Setter Property="IsReadOnly" Value="true"></Setter>
+            <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+            <Setter Property="MaxWidth" Value="200" ></Setter>
+        </Style>
+        <Style TargetType="{x:Type Label}" BasedOn="{StaticResource MaterialDesignLabel}">
+            <Setter Property="Margin" Value="5"></Setter>
+        </Style>
+    </Window.Resources>
+    <DockPanel LastChildFill="True">
+        <DockPanel DockPanel.Dock="Top">
+            <Button Content="IP: " MinWidth="50"></Button>
+            <TextBox Text="{Binding address}" MinWidth="230" IsReadOnly="False"></TextBox>
+            <Button Content="Port: " MinWidth="50"></Button>
+            <TextBox Text="{Binding port}" MinWidth="230" IsReadOnly="False"></TextBox>
+        </DockPanel>
+        <DockPanel DockPanel.Dock="Top">
+            <Button Content="Type here: " MinWidth="100"></Button>
+            <TextBox Name="_Message" MinWidth="380" IsReadOnly="False"></TextBox>
+            <Button Click="Button_Click" Style="{StaticResource YellowButton}" MinWidth="70" MaxWidth="70" Content="Send"></Button>
+        </DockPanel>
+        <DockPanel DockPanel.Dock="Top">
+            <Button Content="Dialog: " MinWidth="100"></Button>
+
+        </DockPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
+            </Grid.RowDefinitions>
+            <ListBox Name="MyList" HorizontalContentAlignment="Stretch" ItemsSource="{Binding Processes}" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+                <ListBox.ItemTemplate>
+                    <DataTemplate >
+                        <materialDesign:Card Name="MyCard"
+                              Background="{Binding color}"
+                              Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                              Padding="8"
+                              UniformCornerRadius="6">
+
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0" Text="{Binding Message}"></TextBlock>
+                                <TextBlock Grid.Row="0" Text="{Binding ReceivedMessage}"></TextBlock>
+                                <Separator Grid.Row="1" Style="{StaticResource MaterialDesignLightSeparator}" />
+                                <TextBlock Grid.Row="2" ><Run Text="{Binding Time, Mode=OneWay}"></Run></TextBlock>
+                            </Grid>
+                        </materialDesign:Card>
+
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+    </DockPanel>
+</Window>
